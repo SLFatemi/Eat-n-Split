@@ -1,5 +1,9 @@
 import './app.css'
 import Friends from "./components/Friends.jsx";
+import FormSplitBill from "./components/FormSplitBill.jsx";
+import {useState} from "react";
+import FormAddFriend from "./components/FormAddFriend.jsx";
+import Button from "./components/Button.jsx";
 
 const initialfriends = [
     {
@@ -22,15 +26,20 @@ const initialfriends = [
     },
 ];
 
-function app() {
+function App() {
+    const [isAddOpen, setIsAddOpen] = useState(false)
+    const [friendsList, setFriendsList] = useState(initialfriends)
 
     return (
         <div className={'app'}>
             <div className={'sidebar'}>
-                <Friends friendsList={initialfriends}/>
+                <Friends friendsList={friendsList}/>
+                <FormAddFriend setIsOpen={setIsAddOpen} isOpen={isAddOpen} setFriendsList={setFriendsList}/>
+                <Button setState={setIsAddOpen}>{!isAddOpen ? 'Add Friend' : 'Close'}</Button>
             </div>
+            <FormSplitBill/>
         </div>
     )
 }
 
-export default app
+export default App

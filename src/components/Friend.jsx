@@ -1,14 +1,17 @@
-function Friend({name, balance, image}) {
-    const correctedName = name[0].toUpperCase() + name.slice(1)
-    const payText = `${balance > 0 ? `${correctedName} owes you` : `You owe ${correctedName}`}`
+import Button from "./Button.jsx";
+
+function Friend({friendObj}) {
+    const correctedName = friendObj.name[0].toUpperCase() + friendObj.name.slice(1).toLowerCase()
+    const payText = `${friendObj.balance > 0 ? `${correctedName} owes you` : `You owe ${correctedName}`}`
+
     return <li>
-        <img src={image} alt={name}/>
+        <img src={friendObj.image} alt={friendObj.name}/>
         <h3>{correctedName}</h3>
-        {balance ?
-            <p className={`${balance > 0 ? 'green' : 'red'}`}>{payText} {Math.abs(balance)}$</p> :
-            <p>{`You and ${name} are even`}</p>
+        {friendObj.balance ?
+            <p className={`${friendObj.balance > 0 ? 'green' : 'red'}`}>{payText} {Math.abs(friendObj.balance)}$</p> :
+            <p>{`You and ${correctedName} are even`}</p>
         }
-        <button className={'button'}>Select</button>
+        <Button>Select</Button>
     </li>
 }
 
