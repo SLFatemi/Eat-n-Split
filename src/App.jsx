@@ -29,15 +29,21 @@ const initialfriends = [
 function App() {
     const [isAddOpen, setIsAddOpen] = useState(false)
     const [friendsList, setFriendsList] = useState(initialfriends)
+    const [selectedFriend, setSelectedFriend] = useState(null)
 
+    friendsList.map((friend) => {
+        const name = friend.name
+        friend.name = name[0].toUpperCase() + name.slice(1).toLowerCase()
+    })
     return (
         <div className={'app'}>
             <div className={'sidebar'}>
-                <Friends friendsList={friendsList}/>
+                <Friends friendsList={friendsList} selectedFriend={selectedFriend}
+                         setSelectedFriend={setSelectedFriend}/>
                 <FormAddFriend setIsOpen={setIsAddOpen} isOpen={isAddOpen} setFriendsList={setFriendsList}/>
-                <Button setState={setIsAddOpen}>{!isAddOpen ? 'Add Friend' : 'Close'}</Button>
+                <Button onClick={() => setIsAddOpen((s) => !s)}>{!isAddOpen ? 'Add Friend' : 'Close'}</Button>
             </div>
-            <FormSplitBill/>
+            {selectedFriend && <FormSplitBill selectedFriend={selectedFriend}/>}
         </div>
     )
 }

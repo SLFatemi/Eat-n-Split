@@ -1,17 +1,21 @@
 import Button from "./Button.jsx";
 
-function Friend({friendObj}) {
-    const correctedName = friendObj.name[0].toUpperCase() + friendObj.name.slice(1).toLowerCase()
-    const payText = `${friendObj.balance > 0 ? `${correctedName} owes you` : `You owe ${correctedName}`}`
+function Friend({friendObj, selectedFriend, setSelectedFriend}) {
+    const payText = `${friendObj.balance > 0 ? `${friendObj.name} owes you` : `You owe ${friendObj.name}`}`
+    const isSelected = selectedFriend?.id === friendObj.id
 
-    return <li>
+    function handleSelect() {
+        setSelectedFriend((curSelected) => curSelected?.id === friendObj.id ? null : friendObj)
+    }
+
+    return <li className={isSelected ? 'selected' : ''}>
         <img src={friendObj.image} alt={friendObj.name}/>
-        <h3>{correctedName}</h3>
+        <h3>{friendObj.name}</h3>
         {friendObj.balance ?
             <p className={`${friendObj.balance > 0 ? 'green' : 'red'}`}>{payText} {Math.abs(friendObj.balance)}$</p> :
-            <p>{`You and ${correctedName} are even`}</p>
+            <p>{`You and ${friendObj.name} are even`}</p>
         }
-        <Button>Select</Button>
+        <Button onClick={handleSelect}>{isSelected ? 'Close' : 'Select'}</Button>
     </li>
 }
 
