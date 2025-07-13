@@ -43,7 +43,7 @@ function App() {
                 <FormAddFriend setIsOpen={setIsAddOpen} isOpen={isAddOpen} setFriendsList={setFriendsList}/>
                 <Button onClick={() => setIsAddOpen((s) => !s)}>{!isAddOpen ? 'Add Friend' : 'Close'}</Button>
             </div>
-            {selectedFriend && <FormSplitBill selectedFriend={selectedFriend}/>}
+            {selectedFriend && <FormSplitBill selectedFriend={selectedFriend} setFriendsList={setFriendsList}/>}
         </div>
     )
 }
